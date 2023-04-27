@@ -1,0 +1,19 @@
+.register-form {
+  max-width: 360px;
+  margin: 60px auto;
+  padding: 20px;
+}
+.register-form label {
+  display: block;
+  margin: 30px auto;
+}
+.register-form span {
+  display: block;
+  margin-bottom: 6px;
+}
+.register-form input {
+  padding: 8px 6px;
+  font-size: 1em;
+  color: #777;
+  width: 100%;
+}

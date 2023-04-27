@@ -9,14 +9,18 @@ import Create from './pages/create/Create'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
 import Projects from './pages/projects/Projects'
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
     <div className='App'>
       <BrowserRouter>
+       <Sidebar />
         <div className='container'>
+          <Navbar />
           <Routes>
-            <Route  exact path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
           </Routes>
           <Routes>
             <Route path="/create" element={<Create />} />
