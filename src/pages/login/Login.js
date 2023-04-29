@@ -1,15 +1,31 @@
 import React, { useState } from 'react'
+import api from '../../utils/api'
 
 //styles
 import './Login.css'
 
-export default function Login() {
+export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(email, password)
+    
+    try {
+      const res = await api.post('/users/login', {
+          data:{
+          email,
+          password
+        }
+      })
+      console.log(res)
+    } catch (err) {
+      console.log(err.response.data);
+      setError(err.message)
+      setIsPending(false)
+    }
   }
   
   return (
@@ -33,7 +49,9 @@ export default function Login() {
       />
        
     </label>
-    <button className='btn'>Login</button>
+    {!isPending && <button className='btn'>Login</button>}
+    {isPending && <button className='btn' disabled>Loading...</button>}
+    {error && <div className='error'>{error}</div>}
    </form>
   )
 }

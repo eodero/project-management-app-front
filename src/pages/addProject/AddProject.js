@@ -1,13 +1,13 @@
 import React from 'react'
 
 //styles
-import './Create.css'
+import './AddProject.css'
 
 
-export default function Create() {
+export const AddProject = () => {
   return (
     <div>
-      Create
+      AddProject
     </div>
   )
 }
