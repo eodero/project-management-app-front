@@ -1,5 +1,5 @@
 import React from "react";
-import { AddProject } from '../pages/addProject/AddProject'
+import { AddProject } from '../components/AddProject'
 
 export const addProjectPath = '/add-project';
 

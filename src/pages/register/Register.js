@@ -1,31 +1,17 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
-import api from '../../utils/api'
-// import { useHistory } from 'react-router-dom'
-//styles
 import './Register.css'
+import { useRegister } from '../../hooks/useRegister';
 
 export const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null)
+  const { register, error, isPending } = useRegister();
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await api.post('/users/register', {
-        email,
-        password,
-        name,
-      })
-    } catch (err) {
-      console.log(err.message);
-      setError(err.message)
-      setIsPending(false)
-    }
-    console.log(email, password, name)
+    
+    register(name, email, password)
   };
   
   return (
@@ -59,8 +45,8 @@ export const Register = () => {
         />
       </label>
       {!isPending && <button className='btn'>Register</button>}
-      {isPending && <button className='btn' disabled>Loading...</button>}
-      {error && <div className='error'>{error}</div>}
+      {isPending && <button className='btn' disabled>loading...</button>}
+      {error && <p>{error}</p>}
     </form>
   )
 }

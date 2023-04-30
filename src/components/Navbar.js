@@ -1,31 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {  useLogout } from '../hooks/useLogout'
+import { useAuthContext } from '../hooks/useAuthContext';
 //styles
-import './Navbar.css'
-import Temple from '../assets/temple.svg'
+import './Navbar.css';
 
 export const Navbar = () => {
-  const { logout } = useLogout()
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+  const  navigate = useNavigate();
+  
+  const handleLogout = () =>{
+    logout();
+    navigate('/login')
+  }
   
   return (
-    <div className='navbar'>
+    <nav className='navbar'>
         <ul>
-            <li>
-                <img src={Temple} alt="project management app logo" />
-                <span>Project management App</span>
+            <li className='title'>
+                Project Manager
             </li>
-            
-            <li><Link></Link></li>
-            <li><Link></Link></li>
-            <li><Link></Link></li>
-            
+          {!user && (
+          <>
             <li><Link to='/login'>Login</Link></li>
             <li><Link to='/register'>Register</Link></li>
+            </>
+            )}
+            
+          {user && (
+          <>
+            <li>Hello, {user.name}</li>
             <li>
-                <button className='btn' onClick={logout}>Logout</button>
+                <button className='btn' onClick={handleLogout}>Logout</button>
             </li>
+          </>
+            )}
+            
         </ul>
-    </div>
+    </nav>
   )
 }

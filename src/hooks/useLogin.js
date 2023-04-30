@@ -1,23 +1,35 @@
 import { useEffect, useState} from 'react';
 import { useAuthContext } from './useAuthContext';
-// import api from './path/to/your/api';
+import api from '../utils/api';
 
-export const useLogout = () => {
+export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState(false);
     const [error, setError] = useState(null)
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
     
-    const logout = async () => {
+    const login = async (email, password) => {
         setError(null);
         setIsPending(true);
         
-        //log user out
+        //login user
         try {
-          await localStorage.removeItem('jwtToken');
+          const res = await api.post('/users/login', {
+            email,
+            password,
+           })
+          //  console.log(res.data,res.data.token)
+        
+          if (!res || !res.data || !res.data.token) {
+           setError('Could not complete log in')
+           }
+           
+           //store jwt in local storage
+           console.log('Received token:', res.data.token);
+           localStorage.setItem('jwt', res.data.token)
     
           //dispatch log out function
-        dispatch({ type: 'LOGOUT' });
+        dispatch({ type: 'LOGIN', payload: res.data });
         
         //update state
         if(!isCancelled){
@@ -39,5 +51,5 @@ export const useLogout = () => {
     useEffect(() => {
       return () => setIsCancelled(true)
     }, [])
-    return { error, isPending, logout }
+    return { login, error, isPending }
 }
