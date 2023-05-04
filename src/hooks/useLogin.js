@@ -1,12 +1,14 @@
 import { useEffect, useState} from 'react';
 import { useAuthContext } from './useAuthContext';
 import api from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState(false);
     const [error, setError] = useState(null)
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
+    const navigate = useNavigate();
     
     const login = async (email, password) => {
         setError(null);
@@ -19,13 +21,18 @@ export const useLogin = () => {
             password,
            })
           //  console.log(res.data,res.data.token)
-        
+    
           if (!res || !res.data || !res.data.token) {
            setError('Could not complete log in')
            }
            
+           if(res.data.status === 'success'){
+            setError(null);
+            navigate("/");
+           }
+           
            //store jwt in local storage
-           console.log('Received token:', res.data.token);
+          //  console.log('Received token:', res.data.token);
            localStorage.setItem('jwt', res.data.token)
     
           //dispatch log out function

@@ -5,13 +5,13 @@ import { useAddProject } from '../hooks/useAddProjects';
 import './AddProject.css'
 
 
-export const AddProject = () => {
+export const AddProject = ({ onAdd, onCancel }) => {
   const { addProject } = useAddProject();
   const [task, setTask] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [description, setDescription] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
-  const [status, setStatus] = useState('pending');
+  const [status, setStatus] = useState('open');
   
   const handleSubmit = async(e) => {
       e.preventDefault();
@@ -24,11 +24,12 @@ export const AddProject = () => {
           assignedTo,
           status
         })
+        onAdd();
         setTask('');
         setDueDate('');
         setDescription('');
         setAssignedTo('');
-        setStatus('pending');
+        setStatus('open');
       } catch (error) {
         console.error("Error adding project:", error.message);
       }
@@ -37,7 +38,7 @@ export const AddProject = () => {
   return (
     <>
       <h3>Add Project</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="add-project-form">
         <label>
           <span>Task:</span>
           <input 
@@ -80,11 +81,12 @@ export const AddProject = () => {
         <label>
           <span>status:</span>
            <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
            </select>
         </label>
         <button>Add project</button>
+        <button type="button" onClick={onCancel}>Cancel</button>
       </form>
     </>
   )

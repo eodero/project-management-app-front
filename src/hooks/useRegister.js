@@ -1,12 +1,14 @@
 import { useEffect, useState} from 'react';
 import { useAuthContext } from './useAuthContext';
 import api from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 export const useRegister = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const { dispatch } = useAuthContext()
+  const navigate = useNavigate();
 
   const register = async (name, email, password) => {
     setError(null)
@@ -18,12 +20,15 @@ export const useRegister = () => {
         email,
         password,
       })
-      
-      console.log(res.data.user)
 
       if (!res || !res.data || !res.data.token) {
         throw new Error('Could not complete registration process')
       }
+      
+      if(res.data.status === 'success') {
+        setError(null)
+        navigate("/")
+      };
       
       //store JWT in local storage
      localStorage.setItem('jwt', res.data.token)
