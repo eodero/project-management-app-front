@@ -11,6 +11,8 @@ import { AddProject } from './AddProject';
 //styles
 import './ProjectsTable.css'
 import './AddProjectModal.css'
+
+//modal
 Modal.setAppElement("#root");
 
 export const ProjectsTable = ({ projects, sortBy }) => {
@@ -18,6 +20,7 @@ export const ProjectsTable = ({ projects, sortBy }) => {
     const [edit, setEdit] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
     const [showAddProjectForm, setShowAddProjectForm] = useState(false);
+    const [reFetch, setRefetch] = useState(false);
     const { user } = useAuthContext();
     
     const sortedProjects = useMemo(() => {
@@ -29,8 +32,12 @@ export const ProjectsTable = ({ projects, sortBy }) => {
     }, [projects, sortBy]);
     
     const handleEdit = (project) => {
+        if(!selectedProject){
+            alert("Please select an item")
+            
+        }
         setEdit(true);
-        setUpdatedProject(project)
+        setUpdatedProject(project);
     }
     const handleDelete = async(projectId) => {
         
@@ -50,8 +57,12 @@ export const ProjectsTable = ({ projects, sortBy }) => {
         setUpdatedProject(upDatedProject);
     };
     
+    const handleAddedProject = () => {
+        setRefetch(!reFetch);
+      };
+    
   return (
-    <div>
+    <div className="table-wrap">
         <div className="table-title">
             <h3>Listed Projects</h3>
         </div>
@@ -80,7 +91,13 @@ export const ProjectsTable = ({ projects, sortBy }) => {
           className="modal"
           overlayClassName="modal-overlay"
         >
-          <AddProject id={user.id} onSubmit={() => setShowAddProjectForm(false)}/>
+          <AddProject 
+          id={user.id} 
+          onSubmit={() => setShowAddProjectForm(false)} 
+          setShowAddProjectForm={setShowAddProjectForm}
+          onSuccessSubmit={() => setShowAddProjectForm(false)}
+          onAdd={handleAddedProject}
+          />
         </Modal>
         <table className="table">
             <thead>

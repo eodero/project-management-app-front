@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../utils/api";
 import { useAuthContext } from "./useAuthContext";
 
-export const useFetchProjects = () => {
+export const useFetchProjects = (reFetch = false) => {
     const [projects, setProjects] = useState([]);
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false)
@@ -39,7 +39,7 @@ export const useFetchProjects = () => {
         };
         
         fetchProjects();
-    }, [user])
+    }, [user, reFetch])
     
     return { projects, error, isPending }
 }

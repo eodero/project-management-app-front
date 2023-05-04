@@ -19,7 +19,7 @@ export const Navbar = () => {
     <nav className='navbar'>
         <ul>
             <li className='title'>
-                Project Manager
+                Project Management App
             </li>
           {!user && (
           <>

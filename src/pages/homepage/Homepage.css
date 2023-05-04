@@ -10,12 +10,12 @@
   .sidebar {
     padding-left: 30px;
   }
-  .sidebar form {
+  /* .sidebar form {
     padding: 20px;
     background: #1f9751;
-    border-radius: 10px;
-  }
-  .sidebar input, .sidebar select {
+    border-radius: 10px; */
+  /* } */
+  /* .sidebar input, .sidebar select {
     display: block;
     width: 100%;
     padding: 10px;
@@ -25,13 +25,13 @@
     border-radius: 4px;
     color: #555;
     font-size: 1em;
-  }
-  .sidebar label {
+  } */
+  /* .sidebar label {
     margin: 0 auto 20px;
     display: block;
     color: #fff;
-  }
-  .sidebar button {
+  } */
+  /* .sidebar button {
     color: #fff;
     border: 2px solid #fff;
     padding: 6px 12px;
@@ -41,8 +41,8 @@
     cursor: pointer;
     display: block;
     width: 100%;
-  }
-  .sidebar h3 {
+  } */
+  /* .sidebar h3 {
     color: #1f9751;
     margin-bottom: 20px;
   }
@@ -52,5 +52,5 @@
   }
   .sidebar aside li {
     margin: 10px;
-  }
+  } */
   

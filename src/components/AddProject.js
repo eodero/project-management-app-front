@@ -5,7 +5,7 @@ import { useAddProject } from '../hooks/useAddProjects';
 import './AddProject.css'
 
 
-export const AddProject = ({ onAdd, onCancel }) => {
+export const AddProject = ({ onSuccessSubmit, setShowAddProjectForm, onAdd }) => {
   const { addProject } = useAddProject();
   const [task, setTask] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -24,12 +24,14 @@ export const AddProject = ({ onAdd, onCancel }) => {
           assignedTo,
           status
         })
-        onAdd();
+        onAdd();//after project is added refresh with new data
         setTask('');
         setDueDate('');
         setDescription('');
         setAssignedTo('');
         setStatus('open');
+        
+        onSuccessSubmit();
       } catch (error) {
         console.error("Error adding project:", error.message);
       }
@@ -86,7 +88,7 @@ export const AddProject = ({ onAdd, onCancel }) => {
            </select>
         </label>
         <button>Add project</button>
-        <button type="button" onClick={onCancel}>Cancel</button>
+        <button type="button" onClick={() => setShowAddProjectForm(false)} >Cancel</button>
       </form>
     </>
   )
