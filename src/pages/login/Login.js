@@ -35,9 +35,9 @@ export const Login = () => {
       />
        
     </label>
+    {error && <p className="error-message">Could not log you in. Please try again</p>}
     {!isPending && <button className='btn'>Login</button>}
     {isPending && <button className='btn' disabled>loading...</button>}
-    {error && <p>Could not log you in. Please try again</p>}
    </form>
   )
 }

@@ -2,7 +2,6 @@ import {  Navigate, Route, Routes } from 'react-router-dom';
 
 //styles
 import './App.css'
-
 //pages and components
 import  { HomePage }  from './pages/homepage/HomePage'
 // import { AddProject } from './components/AddProject'

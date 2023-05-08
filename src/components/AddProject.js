@@ -3,10 +3,11 @@ import { useAddProject } from '../hooks/useAddProjects';
 
 //styles
 import './AddProject.css'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export const AddProject = ({ onSuccessSubmit, setShowAddProjectForm, onAdd }) => {
-  const { addProject } = useAddProject();
+  const { addProject, error, isPending } = useAddProject();
   const [task, setTask] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [description, setDescription] = useState('');
@@ -32,6 +33,7 @@ export const AddProject = ({ onSuccessSubmit, setShowAddProjectForm, onAdd }) =>
         setStatus('open');
         
         onSuccessSubmit();
+        toast.success("Project created successfully")
       } catch (error) {
         console.error("Error adding project:", error.message);
       }
@@ -39,6 +41,7 @@ export const AddProject = ({ onSuccessSubmit, setShowAddProjectForm, onAdd }) =>
   
   return (
     <>
+    <Toaster />
       <h3>Add Project</h3>
       <form onSubmit={handleSubmit} className="add-project-form">
         <label>
@@ -71,7 +74,7 @@ export const AddProject = ({ onSuccessSubmit, setShowAddProjectForm, onAdd }) =>
           </label>
           
           <label>
-          <span>Assigned to::</span>
+          <span>Assigned to:</span>
           <input 
             type="text"
             required
@@ -90,6 +93,7 @@ export const AddProject = ({ onSuccessSubmit, setShowAddProjectForm, onAdd }) =>
         <button>Add project</button>
         <button type="button" onClick={() => setShowAddProjectForm(false)} >Cancel</button>
       </form>
+      {error && <p>{error}</p>}
     </>
   )
 }

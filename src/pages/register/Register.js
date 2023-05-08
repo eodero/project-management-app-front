@@ -6,12 +6,20 @@ export const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { register, error, isPending } = useRegister();
+  const [password1, setPassword1] = useState('');
+  const { register, isPending } = useRegister();
+  const [errorMessage, setErrorMessage] = useState('');
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    register(name, email, password)
+      if(password1 !== password) {
+       setErrorMessage("The passwords do not match, please try again");
+       return;
+      } else {
+        setErrorMessage('');
+      }
+      register(name, email, password)
   };
   
   return (
@@ -34,8 +42,8 @@ export const Register = () => {
          onChange={(e) => setEmail(e.target.value)}
          value={email}
         />
-      </label>
-      <label>
+        </label>
+        <label>
         <span>password:</span>
         <input
         required
@@ -44,9 +52,18 @@ export const Register = () => {
          value={password}
         />
       </label>
+      <label>
+        <span>Confirm password:</span>
+        <input
+        required
+         type='password'
+         onChange={(e) => setPassword1(e.target.value)}
+         value={password1}
+        />
+      </label>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       {!isPending && <button className='btn'>Register</button>}
       {isPending && <button className='btn' disabled>loading...</button>}
-      {error && <p>{error}</p>}
     </form>
   )
 }

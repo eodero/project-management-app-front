@@ -14,7 +14,7 @@ export const useLogout = () => {
         
         //log user out
         try {
-          await localStorage.removeItem('jwtToken');
+          await localStorage.removeItem('token');
     
           //dispatch log out function
         dispatch({ type: 'LOGOUT' });

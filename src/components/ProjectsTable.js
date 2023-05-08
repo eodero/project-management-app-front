@@ -8,9 +8,12 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import { AddProject } from './AddProject';
 
+
 //styles
 import './ProjectsTable.css'
 import './AddProjectModal.css'
+import toast, { Toaster } from 'react-hot-toast';
+
 
 //modal
 Modal.setAppElement("#root");
@@ -33,22 +36,26 @@ export const ProjectsTable = ({ projects, sortBy }) => {
     
     const handleEdit = (project) => {
         if(!selectedProject){
-            alert("Please select an item")
-            
-        }
+            toast.error("Please select an item to edit") 
+        } else {
         setEdit(true);
         setUpdatedProject(project);
+        }
     }
     const handleDelete = async(projectId) => {
-        
-        try {
-            await api.delete(`/projects/${projectId}`, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                }
-            });
-        } catch (error) {
-            console.error("Error deleting project", error);
+        if(!selectedProject) {
+            toast.error("Please select an item to delete");
+        } else {
+            try {
+                await api.delete(`/projects/${projectId}`, {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    }
+                });
+                toast.success("Project deleted successfully");
+            } catch (error) {
+                toast.error("Error deleting project", error);
+            }
         }
     };
     
@@ -63,6 +70,7 @@ export const ProjectsTable = ({ projects, sortBy }) => {
     
   return (
     <div className="table-wrap">
+        <Toaster />
         <div className="table-title">
             <h3>Listed Projects</h3>
         </div>

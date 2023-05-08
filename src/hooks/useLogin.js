@@ -32,11 +32,12 @@ export const useLogin = () => {
            }
            
            //store jwt in local storage
-          //  console.log('Received token:', res.data.token);
-           localStorage.setItem('jwt', res.data.token)
+          const token = res.data.token;
+           localStorage.setItem('jwt', token)
     
           //dispatch log out function
-        dispatch({ type: 'LOGIN', payload: res.data });
+        // dispatch({ type: 'LOGIN', payload: res.data });
+        dispatch({ type: 'LOGIN', payload: { token } });
         
         //update state
         if(!isCancelled){
