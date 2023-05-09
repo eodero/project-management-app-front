@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 export const AddProject = ({ onSuccessSubmit, setShowAddProjectForm, onAdd }) => {
-  const { addProject, error, isPending } = useAddProject();
+  const { addProject, error } = useAddProject();
   const [task, setTask] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [description, setDescription] = useState('');
