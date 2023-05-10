@@ -3,7 +3,7 @@ import {  Navigate, Route, Routes } from 'react-router-dom';
 //styles
 import './App.css'
 //pages and components
-import  { HomePage }   from './pages/homepage/HomePage'
+import  { Homepage }   from './pages/homepage/Homepage'
 // import { AddProject } from './components/AddProject'
 import { Register } from './pages/register/Register'
 import { Login } from './pages/login/Login'
@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route
             path={homePath}
-            element={isAuthenticated ? <HomePage /> : <Navigate to={loginPath} />}
+            element={isAuthenticated ? <Homepage /> : <Navigate to={loginPath} />}
           />
             <Route
              path={registerPath} 

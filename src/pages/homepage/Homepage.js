@@ -7,7 +7,7 @@ import { ProjectsTable } from '../../components/ProjectsTable';
 import './HomePage.css'
 
 
-export const HomePage = () => {
+export const Homepage = () => {
   // const { user } = useAuthContext();
   // console.log('User in HomePage:', user);
   const { projects, error, isPending } = useFetchProjects();
