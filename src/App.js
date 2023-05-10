@@ -25,13 +25,12 @@ function App() {
             path={homePath}
             element={isAuthenticated ? <HomePage /> : <Navigate to={loginPath} />}
           />
-            {/* <Route path={addProjectPath} 
-            element={isAuthenticated ? <AddProject /> :<Navigate to={loginPath} />} 
-            /> */}
-            <Route path={registerPath} 
-            element={!isAuthenticated ? <Register /> : <Navigate to={homePath} />} 
+            <Route
+             path={registerPath} 
+             element={!isAuthenticated ? <Register /> : <Navigate to={homePath} />} 
             />
-            <Route path={loginPath} 
+            <Route 
+            path={loginPath} 
             element={!isAuthenticated ? <Login /> : <Navigate to={homePath}/>} 
             />
           </Routes>
