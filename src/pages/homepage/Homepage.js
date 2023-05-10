@@ -4,7 +4,7 @@ import { useFetchProjects } from '../../hooks/useFetchProjects';
 // import { AddProject } from '../../components/AddProject';
 import { ProjectsTable } from '../../components/ProjectsTable';
 //styles
-import './HomePage.css'
+import './Homepage.css'
 
 
 export const Homepage = () => {
